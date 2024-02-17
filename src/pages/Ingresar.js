@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Form, Input, Button, InputNumber, Typography, Divider } from "antd";
 import { SaveOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 // import { Redirect, useHistory } from "react-router-dom";
 
-// import { useHideMenu } from "../hooks/useHideMenu";
+import { useHideMenu } from "../hooks/useHideMenu";
+import { getUsuarioStorage } from "../helpers/getUsuarioStorage";
 // import { getUsuarioStorage } from "../helpers/getUsuarioStorage";
 
 const { Title, Text } = Typography;
@@ -19,25 +21,27 @@ const tailLayout = {
 };
 
 export const Ingresar = () => {
-  // const history = useHistory();
-  const [usuario] = useState();
+  const navigate = useNavigate();
+  const [usuario] = useState(getUsuarioStorage());
 
-  // useHideMenu(false);
+  useHideMenu(false);
 
   const onFinish = ({ agente, escritorio }) => {
     localStorage.setItem("agente", agente);
     localStorage.setItem("escritorio", escritorio);
 
-    // history.push("/escritorio");
+    navigate("/escritorio", { replace: true });
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
-  // if (usuario.agente && usuario.escritorio) {
-  //   return <Redirect to="/escritorio" />;
-  // }
+  useEffect(() => {
+    if (usuario.agente && usuario.escritorio) {
+      return navigate("/escritorio", { replace: true });
+    }
+  }, [usuario, navigate]);
 
   return (
     <>
