@@ -24,6 +24,24 @@ import { UiContext } from "../context/UiContext";
 
 const { Sider, Content } = Layout;
 
+const menuItems = [
+  {
+    key: "1",
+    label: <Link to="/ingresar">Ingresar</Link>,
+    ion: <UserOutlined />,
+  },
+  {
+    key: "2",
+    label: <Link to="/cola">Cola de tickets</Link>,
+    ion: <VideoCameraOutlined />,
+  },
+  {
+    key: "3",
+    label: <Link to="/crear">Crear tickets</Link>,
+    ion: <UploadOutlined />,
+  },
+];
+
 export const RouterPage = () => {
   const { ocultarMenu } = useContext(UiContext);
 
@@ -32,17 +50,12 @@ export const RouterPage = () => {
       <Layout style={{ height: "100vh" }}>
         <Sider collapsedWidth="0" breakpoint="md" hidden={ocultarMenu}>
           <div className="logo" />
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
-            <Menu.Item key="1" icon={<UserOutlined />}>
-              <Link to="/ingresar">Ingresar</Link>
-            </Menu.Item>
-            <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-              <Link to="/cola">Cola de tickets</Link>
-            </Menu.Item>
-            <Menu.Item key="3" icon={<UploadOutlined />}>
-              <Link to="/crear">Crear tickets</Link>
-            </Menu.Item>
-          </Menu>
+          <Menu
+            items={menuItems}
+            theme="dark"
+            mode="inline"
+            defaultSelectedKeys={["1"]}
+          />
         </Sider>
         <Layout className="site-layout">
           <Content
